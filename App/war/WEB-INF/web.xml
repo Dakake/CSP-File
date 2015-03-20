@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>App</servlet-name>
+		<servlet-class>kr.ac.shinhan.AppServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>App</servlet-name>
+		<url-pattern>/app</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>CurrentTime</servlet-name>
+		<servlet-class>kr.ac.shinhan.CurrentTime</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CurrentTime</servlet-name>
+		<url-pattern>/currenttime</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>TeamProject</servlet-name>
+		<servlet-class>kr.ac.shinhan.TeamProject</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeamProject</servlet-name>
+		<url-pattern>/teamproject</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>TeamGroup</servlet-name>
+		<servlet-class>kr.ac.shinhan.TeamGroup</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeamGroup</servlet-name>
+		<url-pattern>/teamgroup</url-pattern>
+	</servlet-mapping>
+	
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
