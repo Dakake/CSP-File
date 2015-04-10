@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>AddMember</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.AddMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddMember</servlet-name>
+		<url-pattern>/addMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RetriveTeamMember</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.RetriveTeamMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RetriveTeamMember</servlet-name>
+		<url-pattern>/retriveTeamMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ReadTeamMember</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.ReadTeamMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReadTeamMember</servlet-name>
+		<url-pattern>/readTeamMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteMember</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.DeleteMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteMember</servlet-name>
+		<url-pattern>/deleteMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateMember</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.UpdateMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateMember</servlet-name>
+		<url-pattern>/updateMember</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

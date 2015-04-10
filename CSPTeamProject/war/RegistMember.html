@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>타이틀은 회원 등록</title>
+  </head>
+
+  <body>
+    <h1>팀회원 등록</h1>
+	
+    <table>
+      <tr>
+        <form method="post" action="/addMember">
+        	<tr>
+        	<td> 이름 </td> <td><input type = "text" name="name"></td>
+        	</tr>
+        	<tr>
+        	<td> 학번 </td> <td><input type = "text" name = "stdID"></td>
+        	</tr>
+        	<tr>
+        	<td> 전화번호 </td> <td><input type = "text" name = "telephone"></td>
+        	</tr>
+        	<tr>
+        	<td> E-mail </td> <td><input type = "text" name = "email"></td>
+        	</tr>
+        	<tr>
+        	<td> 카카오ID </td> <td><input type = "text" name = "kakaoID"></td>
+        	</tr>
+        	<tr>
+        	<td> 리더여부 </td> <td><input type = "checkbox" name = "reader" value = "true"></td>
+        	</tr>
+        	<tr>
+        	<td> githubID </td> <td><input type = "text" name = "githubID"></td>
+        	</tr>
+        	
+        	<tr>
+        	<input type="submit" value="팀원 추가">
+        	<tr>
+        </form>
+      </tr>
+      
+      <tr>
+      	<form method="get" action="/retriveTeamMember">
+      		<input type="submit" value="팀원 정보">
+      	</form>
+      	</tr>
+      <tr>
+		<td><a href="index.html">처음으로</a></td>
+      </tr>
+      
+    </table>
+  </body>
+</html>
