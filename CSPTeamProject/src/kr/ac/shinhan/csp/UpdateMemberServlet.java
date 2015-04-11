@@ -5,35 +5,35 @@ import java.io.IOException;
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.*;
 
+@SuppressWarnings("serial")
 public class UpdateMemberServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException { 
-		String key =  req.getParameter("key");
-		Long longKey = Long.parseLong(key);
+		
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html");
+		
+		String id =  req.getParameter("id");
+		Member m = MemberManager.getMember(id);
+		PersistenceManager pm = MyPersistenceManager.getManager();
 		
 		String name = req.getParameter("name");
 		String stdID = req.getParameter("stdID");
 		String telephone = req.getParameter("telephone");
 		String email = req.getParameter("email");
 		String kakaoID = req.getParameter("kakaoID");
-		String githubID = req.getParameter("githubID");		
 		boolean checkInfo = req.getParameter("checkInfo") != null;
-		
-		PersistenceManager pm = MyPersistenceManager.getManager();
-		Member m =  pm.getObjectById(Member.class,longKey);
-		
+		String githubID = req.getParameter("githubID");		
+
 		m.setName(name);
 		m.setStdID(stdID);
 		m.setTelephone(telephone);
 		m.setEmail(email);
 		m.setKakaoID(kakaoID);
-		m.setGithubID(githubID);
 		m.setCheckInfo(checkInfo);
-		
+		m.setGithubID(githubID);
 		pm.close();
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain");
 		
 		resp.getWriter().println("<html>");
 		resp.getWriter().println("<body>");
@@ -44,10 +44,12 @@ public class UpdateMemberServlet extends HttpServlet {
 		resp.getWriter().println("<tr>"+ "<td>" +"전화번호 : " +"</td>" +"<td>" + telephone + "</td>" + "</tr>");
 		resp.getWriter().println("<tr>"+ "<td>" +"메일주소 : " +"</td>" +"<td>" + email + "</td>" + "</tr>");
 		resp.getWriter().println("<tr>"+ "<td>" +"카카오톡 아이디 : " +"</td>" +"<td>" + kakaoID + "</td>" + "</tr>");
-		if(checkInfo != true)
+		if(checkInfo != true) {
 			resp.getWriter().println("<tr>"+ "<td>" +"팀장여부" +"</td>" +"<td>" + "Team Member" + "</td>" + "</tr>");
-		else
+		}
+		else {
 			resp.getWriter().println("<tr>"+ "<td>" +"팀장여부" +"</td>" +"<td>" + "Team Reader" + "</td>" + "</tr>");
+		}
 		resp.getWriter().println("<tr>"+ "<td>" +"GitHub ID" +"</td>" +"<td>" + githubID + "</td>" + "</tr>");
 		resp.getWriter().println("</table>");
 		resp.getWriter().println("<a href=" +"retriveTeamMember" + ">" + "뒤로가기" + "</a>"+"</br>");

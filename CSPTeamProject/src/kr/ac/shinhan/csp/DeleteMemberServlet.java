@@ -9,24 +9,29 @@ import javax.servlet.http.*;
 public class DeleteMemberServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException { 
-		String key =  req.getParameter("key");
-		Long longKey = Long.parseLong(key);
 		
-		PersistenceManager pm = MyPersistenceManager.getManager();
-		Member m = pm.getObjectById(Member.class,longKey); //키에 따른 팀 멤버중 한명을 뎃고오는 메소드가 필요하다
-		pm.deletePersistent(m);
 		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain");
+		resp.setContentType("text/html");
 		
+		String id =  req.getParameter("id");
+		Member m = MemberManager.getMember(id);
+	
 		resp.getWriter().println("<html>");
 		resp.getWriter().println("<body>");
 		
-		resp.getWriter().println("<h1>" +"삭제가 완료되었습니다!" + "<h2>");
-		resp.getWriter().println("<a href=" +"retriveTeamMember" + ">" + "뒤로가기" + "</a>"+"</br>");
-		resp.getWriter().println("<a href=" +"index.html" + ">" + "처음으로" + "</a>"+"</br>");
+		resp.getWriter().println("<h1> 삭제가 완료되었습니다! </h1>");
+		resp.getWriter().println("삭제한 내용은 다음과 같습니다. </br>");
+		resp.getWriter().println("이름 : " +m.getName() + "</br>" + "학번 : " + m.getStdID() + "</br>" + "전화번호 : " + m.getTelephone() + "</br>"
+				+ "이메일 : " + m.getEmail() + "</br>" + "카카오ID : " + m.getKakaoID() + "</br>" + "팀장여부 : " + m.isCheckInfo() + "</br>"
+				+ "githubID : " + m.getGithubID() + "</br>");
+		
+		resp.getWriter().println("<a href= /retriveTeamMember> 뒤로가기 </a> </br>");
+		resp.getWriter().println("<a href= /index.html> 처음으로 </a> </br>");
 	
 		resp.getWriter().println("</body>");
 		resp.getWriter().println("</html>");
+		
+		MemberManager.deleteMember(id);
 	}
 
 }

@@ -20,9 +20,15 @@ public class MemberManager {
 	public static Member getMember(String key)
 	{
 		PersistenceManager pm = MyPersistenceManager.getManager();
-		Member m = pm.getObjectById(Member.class,key);
+		long longkey = Long.parseLong(key);
+		Member m = pm.getObjectById(Member.class, longkey);	
 		
 		return m;
+	}
+	public static void deleteMember(String Key) {
+		PersistenceManager pm = MyPersistenceManager.getManager();
+		long longkey = Long.parseLong(Key);
+		pm.deletePersistent(pm.getObjectById(Member.class, longkey));
 	}
 	
 	public static List<Member> getMemberByName(String name)

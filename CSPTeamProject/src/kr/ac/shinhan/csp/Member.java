@@ -10,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Member {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Long key;
+	private Long id;
 	@Persistent
 	private String name;
 	@Persistent
@@ -94,8 +94,8 @@ public class Member {
 		this.checkInfo = checkInfo;
 	}
 
-	public Long getKey() {
-		return key;
+	public Long getId() {
+		return id;
 	}
 	
 }
