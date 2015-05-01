@@ -17,7 +17,7 @@ public class AddMemberServlet extends HttpServlet {
 		boolean checkInfo = req.getParameter("checkInfo") != null;
 		
 		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain");
+		resp.setContentType("text/html");
 	
 		Member m = MemberManager.addMember(name,stdID, telephone, email, kakaoID, checkInfo, githubID);
 		

@@ -10,10 +10,12 @@ public class RetriveTeamMemberServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException
 		{
+			HttpSession session = req.getSession();
 			List<Member> memberList = MemberManager.getAllMembers();
 			int i = memberList.size();
 			
 			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/html");
 			resp.getWriter().println("<HTML>");
 			resp.getWriter().println("<body>");
 			resp.getWriter().println("<table border = " + i + ">");
@@ -21,7 +23,7 @@ public class RetriveTeamMemberServlet extends HttpServlet {
 			resp.getWriter().println("<td>" + "Name" + "</td><td>" + "stdID" + "</td><td>" + "Tel" + "</td><td>" + "E-mail" 
 			+ "</td><td>" + "kakaoID" + "</td><td>" + "Reader" + "</td><td>" + "githubID" + "</td><td>" + "Update" + "</td><td>" + "Delete" + "</td>");
 			resp.getWriter().println("</tr>");
-			
+			resp.getWriter().println(session.getAttribute("userID") + "님 환영합니다.");
 			for(Member m : memberList)
 			{
 				resp.getWriter().println("<tr>");
