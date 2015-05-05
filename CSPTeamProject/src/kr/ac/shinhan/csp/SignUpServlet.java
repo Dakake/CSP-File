@@ -20,15 +20,22 @@ public class SignUpServlet extends HttpServlet {
 		Query qry = MyPersistenceManager.getManager().newQuery(UserAccount.class);
 		List<UserAccount> userAccount = (List<UserAccount>) qry.execute(id);
 		
-		for(UserAccount u : userAccount)
-		{
-			if(u.getUserID().equals(id))
-			{
-				idCheck = true;
-			}
-		}
 		resp.getWriter().println("<html>");
 		resp.getWriter().println("<body>");
+		
+		for(UserAccount ua : userAccount)
+		{
+			if(ua.getUserID().equals(id))
+			{
+				idCheck = true;
+				break;
+			}
+			else
+			{
+				idCheck = false;
+			}
+		}
+		
 		if(idCheck == true)
 		{
 			resp.getWriter().println("등록된 아이디가 있습니다.\n");
@@ -36,10 +43,12 @@ public class SignUpServlet extends HttpServlet {
 		}
 		if(idCheck == false)
 		{
-			UserAccount ua = new UserAccount(id,password,name);
+			UserAccount ua = new UserAccount(id,name,password);
 			MyPersistenceManager.getManager().makePersistent(ua);
 			resp.sendRedirect("Login.html");
 		}
-
+		
+		resp.getWriter().println("</body>");
+		resp.getWriter().println("</html>");
 	}
 }

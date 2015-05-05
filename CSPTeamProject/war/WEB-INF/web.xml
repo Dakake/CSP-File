@@ -66,11 +66,20 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>SignUp</servlet-name>
 		<url-pattern>/signup</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Entry</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.EntryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Entry</servlet-name>
+		<url-pattern>/entry</url-pattern>
+	</servlet-mapping>
 	
 	<session-config>
 		<session-timeout>10</session-timeout>	
 	</session-config>
-	
+
 	<welcome-file-list>
 		<welcome-file>Login.html</welcome-file>
 	</welcome-file-list>

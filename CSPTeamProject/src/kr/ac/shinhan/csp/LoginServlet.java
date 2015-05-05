@@ -1,8 +1,9 @@
 package kr.ac.shinhan.csp;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.servlet.http.*;
 
@@ -15,6 +16,10 @@ public class LoginServlet extends HttpServlet {
 		
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
+		boolean remember = req.getParameter("remember") != null;
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 30);
+		
 		boolean success = false;
 		
 		MyPersistenceManager.getManager();
@@ -52,10 +57,26 @@ public class LoginServlet extends HttpServlet {
 			if(session.isNew())
 				session.setMaxInactiveInterval(60*10);
 			session.setAttribute("userID", id);
-			
+			if(remember == true)
+			{
+				String uuid = UUID.randomUUID().toString();
+				Cookie cookie = new Cookie("token", uuid);
+				cookie.setMaxAge(60*60*24*30);
+				resp.addCookie(cookie);
+				
+				PersistenceManager pm = MyPersistenceManager.getManager();
+				UserLoginToken loginToken = new UserLoginToken(uuid, id,String.valueOf(DateString(cal)));
+				pm.makePersistent(loginToken);
+			}
 			resp.sendRedirect("/index.html");
 		}
 		resp.getWriter().println("</body>");
 		resp.getWriter().println("</html>");
+	}
+	
+	public static String DateString(Calendar cal)
+	{
+		return String.valueOf(cal.get(Calendar.YEAR) + "-" + 
+				(cal.get(Calendar.MONTH) + 1) + "-"+ cal.get(Calendar.DATE));
 	}
 }
