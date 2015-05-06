@@ -18,30 +18,25 @@ public class SignUpServlet extends HttpServlet {
 		boolean idCheck = false;
 		
 		Query qry = MyPersistenceManager.getManager().newQuery(UserAccount.class);
-		List<UserAccount> userAccount = (List<UserAccount>) qry.execute(id);
-		
-		resp.getWriter().println("<html>");
-		resp.getWriter().println("<body>");
+		List<UserAccount> userAccount = (List<UserAccount>) qry.execute();
 		
 		for(UserAccount ua : userAccount)
 		{
-			if(ua.getUserID().equals(id))
+			if(id.equals(ua.getUserID()))
 			{
 				idCheck = true;
-				break;
-			}
-			else
-			{
-				idCheck = false;
 			}
 		}
+		
+		resp.getWriter().println("<html>");
+		resp.getWriter().println("<body>");
 		
 		if(idCheck == true)
 		{
 			resp.getWriter().println("등록된 아이디가 있습니다.\n");
 			resp.getWriter().println("<a href='SignUp.html'> 여기 </a> 를 눌러 다시 시도하세요.");
 		}
-		if(idCheck == false)
+		else
 		{
 			UserAccount ua = new UserAccount(id,name,password);
 			MyPersistenceManager.getManager().makePersistent(ua);

@@ -43,6 +43,7 @@ public class RetriveTeamMemberServlet extends HttpServlet {
 				resp.getWriter().println("<td>" + "<a href =/deleteMember?id="+m.getId()+ "> Delete </a> </td>");
 				resp.getWriter().println("</tr>");
 			}
+			resp.getWriter().println("<a href='logout'>·Î±×¾Æ¿ô</a>");
 			resp.getWriter().println("</table>");
 			resp.getWriter().println("</body>");
 			resp.getWriter().println("</html>");

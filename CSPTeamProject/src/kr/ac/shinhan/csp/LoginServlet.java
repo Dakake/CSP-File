@@ -16,13 +16,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
-		boolean remember = req.getParameter("remember") != null;
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 30);
-		
+		boolean remember = req.getParameter("remember") != null;	
 		boolean success = false;
-		
-		MyPersistenceManager.getManager();
 		
 		Query qry = MyPersistenceManager.getManager().newQuery(UserAccount.class);
 		qry.setFilter("userID == idParam");
@@ -60,23 +55,19 @@ public class LoginServlet extends HttpServlet {
 			if(remember == true)
 			{
 				String uuid = UUID.randomUUID().toString();
-				Cookie cookie = new Cookie("token", uuid);
-				cookie.setMaxAge(60*60*24*30);
-				resp.addCookie(cookie);
 				
 				PersistenceManager pm = MyPersistenceManager.getManager();
-				UserLoginToken loginToken = new UserLoginToken(uuid, id,String.valueOf(DateString(cal)));
+				UserLoginToken loginToken = new UserLoginToken(uuid, id,"30");
+				int date = Integer.parseInt(loginToken.getExprieDate());
 				pm.makePersistent(loginToken);
+				
+				Cookie cookie = new Cookie("token", uuid);
+				cookie.setMaxAge(60*60*24*date);
+				resp.addCookie(cookie);	
 			}
 			resp.sendRedirect("/index.html");
 		}
 		resp.getWriter().println("</body>");
 		resp.getWriter().println("</html>");
-	}
-	
-	public static String DateString(Calendar cal)
-	{
-		return String.valueOf(cal.get(Calendar.YEAR) + "-" + 
-				(cal.get(Calendar.MONTH) + 1) + "-"+ cal.get(Calendar.DATE));
 	}
 }

@@ -1,25 +1,27 @@
 package kr.ac.shinhan.csp;
 
 import java.io.IOException;
-import java.util.*;
-import javax.jdo.*;
-
+import java.util.List;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 import javax.servlet.http.*;
 
-public class EntryServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
-		String id = null;
+
 		int i = 0;
-		Cookie[] cookieList = req.getCookies();
+		PersistenceManager pm = MyPersistenceManager.getManager();
+		Query qry = pm.newQuery(UserLoginToken.class);
 		HttpSession session = req.getSession();
+		Cookie[] cookieList = req.getCookies();
+		session.invalidate();
 		
-		Query qry = MyPersistenceManager.getManager().newQuery(UserLoginToken.class);
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html");
 		resp.getWriter().println("<html>");
 		resp.getWriter().println("<body>");
+		
 		if(cookieList != null)
 		{
 		for(Cookie cookie : cookieList)
@@ -29,15 +31,12 @@ public class EntryServlet extends HttpServlet {
 				List<UserLoginToken> userLogin = (List<UserLoginToken>) qry.execute(cookie.getValue());
 				for(UserLoginToken ult : userLogin)
 				{
-					id = ult.getUserAccount();
-					ult.setToken(UUID.randomUUID().toString());
-					cookie.setValue(ult.getToken());
+					pm.deletePersistent(ult);
 				}
-					if(session.isNew())
-						session.setMaxInactiveInterval(60*10);
-					session.setAttribute("userID", id);
-						
-					resp.sendRedirect("/index.html");
+					cookie.setValue(null);
+					cookie.setMaxAge(0);
+					resp.addCookie(cookie);
+					resp.sendRedirect("/Login.html");
 					i = 1;
 			}
 		}

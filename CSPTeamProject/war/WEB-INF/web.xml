@@ -59,6 +59,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>kr.ac.shinhan.csp.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>SignUp</servlet-name>
 		<servlet-class>kr.ac.shinhan.csp.SignUpServlet</servlet-class>
 	</servlet>
@@ -75,12 +84,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Entry</servlet-name>
 		<url-pattern>/entry</url-pattern>
 	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>entry</welcome-file>
+	</welcome-file-list>
 	
 	<session-config>
 		<session-timeout>10</session-timeout>	
 	</session-config>
 
-	<welcome-file-list>
-		<welcome-file>Login.html</welcome-file>
-	</welcome-file-list>
 </web-app>
