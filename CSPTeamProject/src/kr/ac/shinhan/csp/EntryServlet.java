@@ -2,8 +2,8 @@ package kr.ac.shinhan.csp;
 
 import java.io.IOException;
 import java.util.*;
-import javax.jdo.*;
 
+import javax.jdo.*;
 import javax.servlet.http.*;
 
 public class EntryServlet extends HttpServlet {
@@ -26,13 +26,17 @@ public class EntryServlet extends HttpServlet {
 		{
 			if(cookie.getName().equals("token"))
 			{
+				String uuid = UUID.randomUUID().toString();
 				List<UserLoginToken> userLogin = (List<UserLoginToken>) qry.execute(cookie.getValue());
 				for(UserLoginToken ult : userLogin)
 				{
+
 					id = ult.getUserAccount();
-					ult.setToken(UUID.randomUUID().toString());
-					cookie.setValue(ult.getToken());
+					ult.setToken(uuid);
 				}
+				cookie.setValue(uuid);
+				resp.addCookie(cookie);
+				
 					if(session.isNew())
 						session.setMaxInactiveInterval(60*10);
 					session.setAttribute("userID", id);
