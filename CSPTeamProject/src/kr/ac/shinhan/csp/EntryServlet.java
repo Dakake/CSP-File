@@ -26,17 +26,27 @@ public class EntryServlet extends HttpServlet {
 		{
 			if(cookie.getName().equals("token"))
 			{
+				Calendar now = Calendar.getInstance();
+				now.add(Calendar.DATE,30);
+				String exprieDate = now.getTime().toString();
+				
 				String uuid = UUID.randomUUID().toString();
 				List<UserLoginToken> userLogin = (List<UserLoginToken>) qry.execute(cookie.getValue());
+				
 				for(UserLoginToken ult : userLogin)
 				{
-
-					id = ult.getUserAccount();
-					ult.setToken(uuid);
+					String exDate = ult.getExprieDate();
+					String Today = new Date().toString();
+					if(exDate.compareTo(Today) > 0) {
+						id = ult.getUserAccount();
+						ult.setToken(uuid);
+						ult.setExprieDate(exprieDate);
+						
+						cookie.setValue(uuid);
+						cookie.setMaxAge(60*60*24*30);
+						resp.addCookie(cookie);
+					}
 				}
-				cookie.setValue(uuid);
-				resp.addCookie(cookie);
-				
 					if(session.isNew())
 						session.setMaxInactiveInterval(60*10);
 					session.setAttribute("userID", id);
@@ -54,3 +64,4 @@ public class EntryServlet extends HttpServlet {
 		resp.getWriter().println("</html>");
 	}
 }
+

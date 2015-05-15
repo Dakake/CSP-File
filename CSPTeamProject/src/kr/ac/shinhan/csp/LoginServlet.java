@@ -55,14 +55,17 @@ public class LoginServlet extends HttpServlet {
 			if(remember == true)
 			{
 				String uuid = UUID.randomUUID().toString();
+			
+				Calendar now = Calendar.getInstance();
+				now.add(Calendar.DATE,30);
+				String exprieDate = now.getTime().toString();
 				
 				PersistenceManager pm = MyPersistenceManager.getManager();
-				UserLoginToken loginToken = new UserLoginToken(uuid, id,"30");
-				int date = Integer.parseInt(loginToken.getExprieDate());
+				UserLoginToken loginToken = new UserLoginToken(uuid, id,exprieDate);
 				pm.makePersistent(loginToken);
 				
 				Cookie cookie = new Cookie("token", uuid);
-				cookie.setMaxAge(60*60*24*date);
+				cookie.setMaxAge(60*60*24*30);
 				resp.addCookie(cookie);	
 			}
 			resp.sendRedirect("/index.html");

@@ -41,10 +41,6 @@ public class UserLoginToken {
 		return userAccount;
 	}
 
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
-
 	public String getExprieDate() {
 		return exprieDate;
 	}
